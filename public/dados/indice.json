@@ -1,0 +1,138 @@
+{
+ "BTCUSDT-4h": {
+  "mercado": "cripto",
+  "ativo": "BTCUSDT",
+  "periodo": "4h",
+  "fonte": "data.binance.vision",
+  "custo_pct": 0.1,
+  "slippage_pct": 0.02,
+  "barras": 17161,
+  "de": "2019-01-01",
+  "ate": "2026-10-31"
+ },
+ "ETHUSDT-4h": {
+  "mercado": "cripto",
+  "ativo": "ETHUSDT",
+  "periodo": "4h",
+  "fonte": "data.binance.vision",
+  "custo_pct": 0.1,
+  "slippage_pct": 0.02,
+  "barras": 17161,
+  "de": "2019-01-01",
+  "ate": "2026-10-31"
+ },
+ "SOLUSDT-4h": {
+  "mercado": "cripto",
+  "ativo": "SOLUSDT",
+  "periodo": "4h",
+  "fonte": "data.binance.vision",
+  "custo_pct": 0.1,
+  "slippage_pct": 0.02,
+  "barras": 12780,
+  "de": "2021-01-01",
+  "ate": "2026-10-31"
+ },
+ "BTCUSDT-1d": {
+  "mercado": "cripto",
+  "ativo": "BTCUSDT",
+  "periodo": "1d",
+  "fonte": "data.binance.vision",
+  "custo_pct": 0.1,
+  "slippage_pct": 0.02,
+  "barras": 3226,
+  "de": "2018-01-01",
+  "ate": "2026-10-31"
+ },
+ "PETR4-1d": {
+  "mercado": "b3",
+  "ativo": "PETR4",
+  "periodo": "1d",
+  "fonte": "B3 COTAHIST",
+  "custo_pct": 0.03,
+  "slippage_pct": 0.05,
+  "ajustes": [],
+  "nota": "preço sem proventos; desdobramentos ajustados pela razão detectada",
+  "barras": 3692,
+  "de": "2012-01-02",
+  "ate": "2026-11-19"
+ },
+ "VALE3-1d": {
+  "mercado": "b3",
+  "ativo": "VALE3",
+  "periodo": "1d",
+  "fonte": "B3 COTAHIST",
+  "custo_pct": 0.03,
+  "slippage_pct": 0.05,
+  "ajustes": [],
+  "nota": "preço sem proventos; desdobramentos ajustados pela razão detectada",
+  "barras": 3692,
+  "de": "2012-01-02",
+  "ate": "2026-11-19"
+ },
+ "ITUB4-1d": {
+  "mercado": "b3",
+  "ativo": "ITUB4",
+  "periodo": "1d",
+  "fonte": "B3 COTAHIST",
+  "custo_pct": 0.03,
+  "slippage_pct": 0.05,
+  "ajustes": [],
+  "nota": "preço sem proventos; desdobramentos ajustados pela razão detectada",
+  "barras": 3692,
+  "de": "2012-01-02",
+  "ate": "2026-11-19"
+ },
+ "BBAS3-1d": {
+  "mercado": "b3",
+  "ativo": "BBAS3",
+  "periodo": "1d",
+  "fonte": "B3 COTAHIST",
+  "custo_pct": 0.03,
+  "slippage_pct": 0.05,
+  "ajustes": [
+   {
+    "data": "2024-04-16",
+    "razao": 2
+   }
+  ],
+  "nota": "preço sem proventos; desdobramentos ajustados pela razão detectada",
+  "barras": 3692,
+  "de": "2012-01-02",
+  "ate": "2026-11-19"
+ },
+ "WEGE3-1d": {
+  "mercado": "b3",
+  "ativo": "WEGE3",
+  "periodo": "1d",
+  "fonte": "B3 COTAHIST",
+  "custo_pct": 0.03,
+  "slippage_pct": 0.05,
+  "ajustes": [
+   {
+    "data": "2015-04-01",
+    "razao": 2
+   },
+   {
+    "data": "2021-04-28",
+    "razao": 2
+   }
+  ],
+  "nota": "preço sem proventos; desdobramentos ajustados pela razão detectada",
+  "barras": 3692,
+  "de": "2012-01-02",
+  "ate": "2026-11-19"
+ },
+ "BOVA11-1d": {
+  "mercado": "b3",
+  "ativo": "BOVA11",
+  "periodo": "1d",
+  "fonte": "B3 COTAHIST",
+  "custo_pct": 0.03,
+  "slippage_pct": 0.05,
+  "ajustes": [],
+  "nota": "preço sem proventos; desdobramentos ajustados pela razão detectada",
+  "barras": 3692,
+  "de": "2012-01-02",
+  "ate": "2026-11-19"
+ }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "alfa-aberta",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Gerador de estratégias de trading por evolução genética, com atestado de robustez, API REST e MCP. Roda no navegador ou no servidor.",
+  "scripts": {
+    "start": "node src/servidor.mjs",
+    "test": "node --test test/*.test.mjs",
+    "dados": "python3 bin/baixar_dados.py"
+  },
+  "license": "MIT"
+}

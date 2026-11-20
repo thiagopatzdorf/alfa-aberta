@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alfa Aberta — gere, teste e destrua estratégias de trading</title>
+<meta name="description" content="Gerador de estratégias de trading por programação genética, com atestado de robustez. Grátis, aberto (MIT), no seu navegador ou no servidor, com API e MCP.">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" content="Alfa Aberta">
+<meta property="og:description" content="Gere, teste e destrua milhares de estratégias de trading. Grátis e aberto (MIT).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0d10'/%3E%3Cpath d='M6 22 L12 14 L17 18 L26 8' stroke='%237d93ff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="pular" href="#principal">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="#/" aria-label="Alfa Aberta, início">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><rect width="32" height="32" rx="7" class="marca-fundo"/><path d="M6 22 L12 14 L17 18 L26 8" class="marca-linha"/></svg>
+      <span>Alfa Aberta</span>
+      <span class="selo">MIT</span>
+    </a>
+    <nav class="navega" aria-label="Seções">
+      <a href="#/">Gerar</a>
+      <a href="#/banco">Banco</a>
+      <a href="#/agentes">Para agentes</a>
+    </nav>
+    <div class="topo-acoes">
+      <div class="modo" role="radiogroup" aria-label="Onde calcular">
+        <label><input type="radio" name="modo" value="local" checked><span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="8.5" rx="1.5"/><path d="M5 13.5h6"/></svg>Seu computador</span></label>
+        <label><input type="radio" name="modo" value="servidor"><span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="5" rx="1.2"/><rect x="2" y="9" width="12" height="5" rx="1.2"/><path d="M4.5 4.5h1M4.5 11.5h1"/></svg>Servidor</span></label>
+      </div>
+      <div id="conta" class="conta" aria-live="polite"></div>
+      <button id="tema" class="icone" type="button" aria-label="Alternar tema claro/escuro" title="Tema">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M3 13l1.1-1.1M11.9 4.1 13 3"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="principal" tabindex="-1">
+  <!-- Início: gerar, ver evoluir, banco -->
+  <div id="vista-inicio">
+    <section class="heroi" aria-labelledby="titulo">
+      <div class="heroi-in">
+        <div class="heroi-texto">
+          <p class="sobre"><span class="ponto-vivo" aria-hidden="true"></span>Programação genética + atestado de robustez</p>
+          <h1 id="titulo">Alfa Aberta</h1>
+          <p class="pitch">Gere, teste e destrua milhares de estratégias de trading. Grátis, aberto (MIT), no seu computador ou no nosso servidor, com API e MCP para o seu agente de IA.</p>
+        </div>
+        <ul class="heroi-fatos" aria-label="Como funciona">
+          <li><b>Determinístico</b><span>mesma semente e mesmas ilhas, mesmo banco, em qualquer máquina</span></li>
+          <li><b>Fora da amostra</b><span>os últimos dados nunca guiam a evolução</span></li>
+          <li><b>7 testes</b><span>walk-forward, Monte Carlo, acaso, vizinhos, outros mercados</span></li>
+          <li><b>Exporta</b><span>Python, Pine, MQL5 e NTSL (Profit)</span></li>
+        </ul>
+      </div>
+      <p class="aviso"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.2M8 10.8v.6"/></svg>
+        Não é recomendação de investimento. Resultado passado não garante resultado futuro. Os testes de robustez reduzem o risco de sobreajuste (estratégia que decorou o passado), mas não o eliminam.</p>
+    </section>
+
+    <div class="area">
+      <aside class="painel config" aria-labelledby="t-config">
+        <form id="configurador" novalidate>
+          <div class="painel-cab"><h2 id="t-config">Configurar</h2><button type="button" class="link-btn" id="restaurar">padrões</button></div>
+
+          <fieldset class="bloco">
+            <legend>Série de preços</legend>
+            <div id="lista-series" class="series" role="radiogroup" aria-label="Série"></div>
+            <label class="enviar">
+              <input type="file" id="csv" accept=".csv,text/csv,text/plain">
+              <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V2.5M4.5 6 8 2.5 11.5 6M2.5 11v2.5h11V11"/></svg>Enviar CSV</span>
+              <small>data, abertura, máxima, mínima, fechamento (lido no seu navegador)</small>
+            </label>
+            <p id="csv-erro" class="erro-campo" role="alert" hidden></p>
+          </fieldset>
+
+          <fieldset class="bloco">
+            <legend>Direção</legend>
+            <div class="segmentado" role="radiogroup">
+              <label><input type="radio" name="direcao" value="ambas" checked><span>Ambas</span></label>
+              <label><input type="radio" name="direcao" value="compra"><span>Só compra</span></label>
+              <label><input type="radio" name="direcao" value="venda"><span>Só venda</span></label>
+              <label><input type="radio" name="direcao" value="livre"><span>Livre</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="bloco">
+            <legend>Indicadores <button type="button" class="link-btn" id="todos-ind">todos</button></legend>
+            <div id="indicadores" class="fichas"></div>
+          </fieldset>
+
+          <fieldset class="bloco grade-campos">
+            <legend>Evolução</legend>
+            <label class="campo"><span>População</span><input type="number" name="populacao" min="10" max="5000" step="10" inputmode="numeric"></label>
+            <label class="campo"><span>Gerações</span><input type="number" name="geracoes" min="1" max="1000" inputmode="numeric"></label>
+            <label class="campo"><span>Ilhas</span><input type="number" name="ilhas" min="1" max="64" inputmode="numeric"></label>
+            <label class="campo"><span>Máx. condições</span><input type="number" name="max_condicoes" min="1" max="6" inputmode="numeric"></label>
+            <label class="campo"><span>Mín. operações</span><input type="number" name="min_operacoes" min="1" max="1000" inputmode="numeric"></label>
+            <label class="campo"><span>Semente</span><input type="number" name="semente" min="0" step="1" inputmode="numeric"></label>
+            <label class="campo largo"><span>Aptidão (o que a evolução persegue)</span>
+              <select name="aptidao">
+                <option value="retorno_dd">Retorno ÷ drawdown</option>
+                <option value="sharpe">Sharpe</option>
+                <option value="lucro">Lucro</option>
+                <option value="fator_lucro">Fator de lucro</option>
+                <option value="sqn">SQN</option>
+                <option value="estabilidade">Estabilidade (R² da curva)</option>
+              </select></label>
+            <label class="campo largo"><span>Dentro da amostra <output id="fis-saida">70%</output></span>
+              <input type="range" name="fracao_is" min="50" max="90" step="5" aria-describedby="fis-dica">
+              <small id="fis-dica">O resto fica guardado e só é olhado no fim.</small></label>
+          </fieldset>
+
+          <fieldset class="bloco grade-campos">
+            <legend>Custos por lado</legend>
+            <label class="campo"><span>Corretagem/taxa %</span><input type="number" name="custo_pct" min="0" max="5" step="0.01" inputmode="decimal"></label>
+            <label class="campo"><span>Slippage %</span><input type="number" name="slippage_pct" min="0" max="5" step="0.01" inputmode="decimal"></label>
+          </fieldset>
+
+          <div class="acao">
+            <p class="estimativa" id="estimativa"></p>
+            <button type="submit" class="primario grande" id="evoluir"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg><span>Evoluir</span></button>
+            <button type="button" class="secundario" id="cancelar" hidden>Cancelar</button>
+            <p class="nota">Mesma semente + mesmo número de ilhas = mesmo banco, em qualquer máquina, com qualquer número de núcleos. Cada ilha tem semente própria; os núcleos só decidem a velocidade.</p>
+          </div>
+        </form>
+      </aside>
+
+      <div class="palco">
+        <section class="painel evolucao" id="evolucao" aria-labelledby="t-evol">
+          <div class="painel-cab">
+            <h2 id="t-evol">Evolução</h2>
+            <span class="estado" id="estado-evol" aria-live="polite">parada</span>
+          </div>
+          <div class="placar" role="group" aria-label="Placar">
+            <div><span>Avaliadas</span><b id="p-avaliadas">0</b></div>
+            <div><span>Por segundo</span><b id="p-ritmo">—</b></div>
+            <div><span>Geração</span><b id="p-geracao">—</b></div>
+            <div><span>Tempo</span><b id="p-tempo">—</b></div>
+            <div><span>Núcleos</span><b id="p-nucleos">—</b></div>
+          </div>
+          <div class="evol-grade">
+            <figure class="nuvem">
+              <figcaption>
+                <span>Cada ponto é uma estratégia avaliada (<b id="n-pontos">0</b>)</span>
+                <span class="legenda"><i class="lg novo"></i>recém-avaliada <i class="lg velho"></i>descartada <i class="lg dentro"></i>banco, dentro <i class="lg fora"></i>banco, fora da amostra</span>
+              </figcaption>
+              <canvas id="dispersao" role="img" aria-label="Nuvem de estratégias avaliadas: drawdown máximo no eixo x, lucro dentro da amostra no eixo y"></canvas>
+            </figure>
+            <div class="lado">
+              <figure class="aptidao">
+                <figcaption>Melhor aptidão por geração</figcaption>
+                <canvas id="g-aptidao" role="img" aria-label="Melhor aptidão por geração"></canvas>
+              </figure>
+              <div class="ilhas" id="ilhas" aria-label="Progresso por ilha"></div>
+            </div>
+          </div>
+          <p id="evol-msg" class="msg" role="status" hidden></p>
+        </section>
+
+        <section class="painel banco" id="banco" aria-labelledby="t-banco">
+          <div class="painel-cab">
+            <h2 id="t-banco">Banco de estratégias</h2>
+            <label class="chave"><input type="checkbox" id="so-fora"><span>só as que lucraram fora da amostra</span></label>
+          </div>
+          <p class="sub" id="banco-sub">Rode uma evolução para encher o banco. As melhores de todas as ilhas, sem repetir comportamento, medidas fora da amostra só aqui no fim.</p>
+          <div class="tabela-rolo" tabindex="0" aria-label="Tabela do banco (role para os lados no celular)">
+            <table class="tabela" id="tabela-banco">
+              <thead>
+                <tr class="grupo"><th colspan="3"></th><th colspan="3" class="g-dentro">Dentro da amostra</th><th colspan="3" class="g-fora">Fora da amostra</th><th></th></tr>
+                <tr id="cab-banco"></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section class="agentes" id="agentes" aria-labelledby="t-agentes">
+      <div class="agentes-in">
+        <div class="agentes-texto">
+          <p class="sobre">API REST e MCP</p>
+          <h2 id="t-agentes">Para agentes</h2>
+          <p>O seu agente de IA (Claude, ChatGPT ou qualquer cliente MCP) pede a evolução, o atestado e a exportação pelo mesmo motor desta página. Nada de raspar tela.</p>
+          <dl class="endpoint"><dt>MCP</dt><dd><code id="url-mcp">https://…/mcp</code><button type="button" class="mini" data-copiar="#url-mcp">Copiar</button></dd>
+            <dt>REST</dt><dd><code id="url-api">https://…/api</code><button type="button" class="mini" data-copiar="#url-api">Copiar</button></dd></dl>
+          <div id="chave-api" class="chave-api"></div>
+        </div>
+        <div class="agentes-codigo">
+          <div class="abas" role="tablist" aria-label="Exemplos">
+            <button role="tab" aria-selected="true" aria-controls="ex-curl" id="ab-curl">curl</button>
+            <button role="tab" aria-selected="false" aria-controls="ex-claude" id="ab-claude" tabindex="-1">Claude</button>
+            <button role="tab" aria-selected="false" aria-controls="ex-chatgpt" id="ab-chatgpt" tabindex="-1">ChatGPT</button>
+          </div>
+          <div class="codigo" role="tabpanel" id="ex-curl" aria-labelledby="ab-curl"><button type="button" class="mini copiar">Copiar</button><pre><code></code></pre></div>
+          <div class="codigo" role="tabpanel" id="ex-claude" aria-labelledby="ab-claude" hidden><button type="button" class="mini copiar">Copiar</button><pre><code></code></pre></div>
+          <div class="codigo" role="tabpanel" id="ex-chatgpt" aria-labelledby="ab-chatgpt" hidden><button type="button" class="mini copiar">Copiar</button><pre><code></code></pre></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Detalhe de uma estratégia (do banco ou de um link verificável) -->
+  <div id="vista-estrategia" hidden></div>
+</main>
+
+<footer class="rodape">
+  <div class="rodape-in">
+    <div>
+      <b>Alfa Aberta</b> · licença MIT · <a href="https://github.com/thiagopatzdorf/alfa-aberta" rel="noopener">código-fonte</a>
+    </div>
+    <div>Dados: <a href="https://data.binance.vision" rel="noopener">Binance (dados públicos)</a> e <a href="https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/historico/mercado-a-vista/cotacoes-historicas/" rel="noopener">B3 COTAHIST</a></div>
+    <div>feito pela <a href="https://genesisinnovation.io" rel="noopener">Genesis</a></div>
+  </div>
+</footer>
+</body>
+</html>

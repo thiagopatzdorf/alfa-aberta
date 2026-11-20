@@ -1,0 +1,22 @@
+{
+  "nome": "alfa-aberta",
+  "tipo": "web",
+  "molde": "sistema-web",
+  "descricao": "Alfa Aberta: gerador de estratégias de trading por evolução genética com atestado de robustez, grátis e MIT; roda no navegador (Web Workers) ou no servidor, com API REST e MCP.",
+  "titular": "genesis",
+  "conectores": [],
+  "host": "alfa.genesisinnovation.io",
+  "escala_zero": false,
+  "criado_em": "2026-11-20",
+  "porta": 8080,
+  "memoria_limite_mi": 768,
+  "tmp_mi": 16,
+  "egresso_https": true,
+  "cpu_limite_m": 2000,
+  "partida_segundos": 60,
+  "env": {
+    "ALFA_THREADS": "2",
+    "BASE_URL": "https://alfa.genesisinnovation.io",
+    "LOGIN_GOOGLE": "desligado"
+  }
+}
